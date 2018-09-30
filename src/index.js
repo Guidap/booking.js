@@ -1,1 +1,1 @@
-console.log("Hello world !!!");
+document.body.appendChild(`<h1>Hello world !!!</h1>`);

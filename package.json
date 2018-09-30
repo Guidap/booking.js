@@ -6,8 +6,8 @@
   "author": "GUIDAP <dev@guidap.co>",
   "license": "SEE LICENSE IN LICENSE",
   "scripts": {
-    "dev": "webpack --config webpack.dev.js",
-    "prod": "webpack --config webpack.prod.js",
+    "build-dev": "webpack --config webpack.dev.js",
+    "build-prod": "webpack --config webpack.prod.js",
     "release": "yarn version && git push --tags && git push"
   },
   "devDependencies": {

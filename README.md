@@ -5,12 +5,12 @@ A public library used to import GUIDAP reservation module on your website 🚀
 
 Build for development :
 ```
-yarn dev
+yarn build-dev
 ```
 
 Build for production :
 ```
-yarn prod
+yarn build-prod
 ```
 
 Release in production :

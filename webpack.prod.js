@@ -12,7 +12,6 @@ module.exports = merge(common, {
         filename: OUTPUT_FILENAME
     },
     optimization: {
-        concatenateModules: true,
         minimizer: [
             new UglifyJsPlugin({
                 parallel: 4,
