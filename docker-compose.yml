@@ -1,0 +1,10 @@
+version: '2'
+
+services:
+    node:
+        container_name: booking.js-node
+        build: ./
+        volumes:
+            - .:/usr/src/app:cached
+        ports:
+            - "8081:8080"

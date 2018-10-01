@@ -8,7 +8,7 @@
   "scripts": {
     "build-dev": "webpack --config webpack.dev.js",
     "build-prod": "webpack --config webpack.prod.js",
-    "release": "yarn version && git push --tags && git push"
+    "serve": "yarn webpack-dev-server --open --config webpack.dev.js"
   },
   "devDependencies": {
     "@babel/core": "^7.1.2",
@@ -21,6 +21,7 @@
     "uglifyjs-webpack-plugin": "^2.0.1",
     "webpack": "^4.20.2",
     "webpack-cli": "^3.1.1",
+    "webpack-dev-server": "^3.1.9",
     "webpack-merge": "^4.1.4"
   },
   "dependencies": {}
