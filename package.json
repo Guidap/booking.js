@@ -8,7 +8,7 @@
   "scripts": {
     "build-dev": "webpack --config webpack.dev.js",
     "build-prod": "webpack --config webpack.prod.js",
-    "serve": "yarn webpack-dev-server --open --config webpack.dev.js"
+    "serve": "yarn webpack-dev-server --config webpack.dev.js"
   },
   "devDependencies": {
     "@babel/core": "^7.1.2",
