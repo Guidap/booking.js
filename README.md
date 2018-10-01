@@ -8,26 +8,31 @@ A public library used to import GUIDAP reservation module on your website 🚀
 #### With docker :
 > **Note:** you must have **Docker** and **Docker-compose** installed if you want to use the provided dev environment
 
-Launch this command in your favorite terminal :
+Launch this command in your favorite terminal:
 ```sh
 docker-compose up -d --build # download dependencies, build and host the project
 ```
 
 Then, you can access the exposed files at [http://localhost:8081/](http://localhost:8081/).
 
+You can acces the container with the following command:
+```sh
+docker exec -it booking.js-node /bin/bash
+```
+
 You can restart the dev environment by restarting the Docker container :
 ```sh
 docker restart booking.js-node
 ```
 
-You can stop the container with the following command :
+You can stop the container with the following command:
 ```sh
 docker-compose down
 ```
 
 #### Without docker :
 
-Run the following commands :
+Run the following commands:
 ```sh
 yarn
 yarn build-dev
