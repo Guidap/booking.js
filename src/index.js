@@ -16,10 +16,27 @@
 
         /** Sets iframe src and display modal
          * @param uuid Uuid of module export
+         * @param e JS event from onclick
          */
-        this.call = function (uuid) {
-            this.iframeElement.setAttribute('src', 'https://' + this.domain + '/app_dev.php/activity/export-full/' + uuid);
+        this.call = function (uuid, e) {
+
+            let event;
+            if (!e) {
+                event = window.event;
+            } else {
+                event = e;
+            }
+
+            // Cancel propagation
+            event.cancelBubble = true;      // IE
+            if (event.stopPropagation) {    // All modern browsers
+                event.stopPropagation();
+            }
+
+            this.iframeElement.setAttribute('src', 'http://' + this.domain + '/app_dev.php/activity/export-full/' + uuid);
             this.rootElement.style.display = 'block';
+
+            return false;
         };
 
         /** Closes modal
