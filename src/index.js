@@ -103,5 +103,5 @@
     };
 
     window.GUIDAP = window.GUIDAP || {};
-    GUIDAP.booking = new Booking();
+    window.GUIDAP.booking = new Booking();
 })();
