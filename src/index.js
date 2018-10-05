@@ -15,10 +15,10 @@
             _rootElement.setAttribute('style', 'display:none; position:fixed; left:0; top:0; height:100vh; width:100vw; background-color:rgba(50, 50, 50, 0.5);');
         };
 
-        /** Creates veil meant to darken website, hold close button and iframe
+        /** Creates backdrop meant to darken website, hold close button and iframe
          *
          */
-        let _createVeil = function() {
+        let _createBackdrop = function() {
             _contentElement = document.createElement('div');
             _contentElement.setAttribute('style', 'position:absolute; left:10px; top:25px; width:calc(100% - 20px); height:calc(100% - 50px); box-sizing: border-box; border:1px solid #E0E0E0; background-color:#fff; box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);');
         };
@@ -66,7 +66,11 @@
                 event.stopPropagation();
             }
 
-            _iframeElement.setAttribute('src', 'http://' + _domain + '/app_dev.php/export/full/' + uuid);
+            let isProduction = (process.env.NODE_ENV === 'production');
+            let protocol = isProduction ? "https://" : "http://";
+            let path = (isProduction ? "" : "/app_dev.php") + '/export/full/' + uuid;
+
+            _iframeElement.setAttribute('src', protocol + _domain + path);
             _rootElement.style.display = 'block';
 
             return false;
@@ -80,13 +84,13 @@
         };
 
         /** Sets owner domain for use in iframe, creates modal
-         * @param _domain Tenant domain
+         * @param domain Tenant domain
          */
         this.init = function (domain) {
             _domain = domain;
 
             _createRoot();
-            _createVeil();
+            _createBackdrop();
             _contentElement.appendChild(_createCloseButton());
 
             _createIframe();
