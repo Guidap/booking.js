@@ -32,7 +32,7 @@
                 event.stopPropagation();
             }
 
-            this.iframeElement.setAttribute('src', 'http://' + this.domain + '/app_dev.php/activity/export-full/' + uuid);
+            this.iframeElement.setAttribute('src', 'http://' + this.domain + '/app_dev.php/export/full/' + uuid);
             this.rootElement.style.display = 'block';
 
             return false;
