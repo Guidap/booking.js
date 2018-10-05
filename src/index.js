@@ -1,33 +1,32 @@
 (function() {
     function Booking() {
 
-        this.domain = null;
-        this.uuid = null;
+        let _domain = null;
 
-        let rootElement = null;
-        let contentElement = null;
-        let iframeElement = null;
+        let _rootElement = null;
+        let _contentElement = null;
+        let _iframeElement = null;
 
         /** Creates root element for modal to be displayed
          *
          */
-        let createRoot = function() {
-            rootElement = document.createElement('div');
-            rootElement.setAttribute('style', 'display:none; position:fixed; left:0; top:0; height:100vh; width:100vw; background-color:rgba(50, 50, 50, 0.5);');
+        let _createRoot = function() {
+            _rootElement = document.createElement('div');
+            _rootElement.setAttribute('style', 'display:none; position:fixed; left:0; top:0; height:100vh; width:100vw; background-color:rgba(50, 50, 50, 0.5);');
         };
 
         /** Creates veil meant to darken website, hold close button and iframe
          *
          */
-        let createVeil = function() {
-            contentElement = document.createElement('div');
-            contentElement.setAttribute('style', 'position:absolute; left:10px; top:25px; width:calc(100% - 20px); height:calc(100% - 50px); box-sizing: border-box; border:1px solid #E0E0E0; background-color:#fff; box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);');
+        let _createVeil = function() {
+            _contentElement = document.createElement('div');
+            _contentElement.setAttribute('style', 'position:absolute; left:10px; top:25px; width:calc(100% - 20px); height:calc(100% - 50px); box-sizing: border-box; border:1px solid #E0E0E0; background-color:#fff; box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);');
         };
 
         /** Creates button meant to close modal
          *
          */
-        let createCloseButton = function() {
+        let _createCloseButton = function() {
             let closeElement = document.createElement('div');
             closeElement.setAttribute('style', 'position:absolute; top:-22px; right:-8px; height:44px; width:44px; border-radius:50%; background:#fff; text-align:center; font-family: sans-serif; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12), 0 1px 3px rgba(0, 0, 0, 0.20); cursor:pointer;');
             closeElement.setAttribute('onClick', 'GUIDAP.booking.close()');
@@ -38,15 +37,15 @@
         /** Creates iframe meant to show content
          *
          */
-        let createIframe = function() {
-            iframeElement = document.createElement('iframe');
-            iframeElement.setAttribute('style', 'width:100%; height:100%');
-            iframeElement.setAttribute('marginwidth', "0");
-            iframeElement.setAttribute('marginHeight', "0");
-            iframeElement.setAttribute('frameborder', "0");
-            iframeElement.setAttribute('vspace', "0");
-            iframeElement.setAttribute('hspace', "0");
-            iframeElement.setAttribute('allowtransparency', "0");
+        let _createIframe = function() {
+            _iframeElement = document.createElement('iframe');
+            _iframeElement.setAttribute('style', 'width:100%; height:100%');
+            _iframeElement.setAttribute('marginwidth', "0");
+            _iframeElement.setAttribute('marginHeight', "0");
+            _iframeElement.setAttribute('frameborder', "0");
+            _iframeElement.setAttribute('vspace', "0");
+            _iframeElement.setAttribute('hspace', "0");
+            _iframeElement.setAttribute('allowtransparency', "0");
         };
 
         /** Sets iframe src and display modal
@@ -67,8 +66,8 @@
                 event.stopPropagation();
             }
 
-            iframeElement.setAttribute('src', 'http://' + this.domain + '/app_dev.php/export/full/' + uuid);
-            rootElement.style.display = 'block';
+            _iframeElement.setAttribute('src', 'http://' + _domain + '/app_dev.php/export/full/' + uuid);
+            _rootElement.style.display = 'block';
 
             return false;
         };
@@ -76,25 +75,25 @@
         /** Closes modal
          */
         this.close = function () {
-            iframeElement.setAttribute('src', '');
-            rootElement.style.display = 'none';
+            _iframeElement.setAttribute('src', '');
+            _rootElement.style.display = 'none';
         };
 
         /** Sets owner domain for use in iframe, creates modal
-         * @param domain Tenant domain
+         * @param _domain Tenant domain
          */
         this.init = function (domain) {
-            this.domain = domain;
+            _domain = domain;
 
-            createRoot();
-            createVeil();
-            contentElement.appendChild(createCloseButton());
+            _createRoot();
+            _createVeil();
+            _contentElement.appendChild(_createCloseButton());
 
-            createIframe();
-            contentElement.appendChild(iframeElement);
+            _createIframe();
+            _contentElement.appendChild(_iframeElement);
 
-            rootElement.appendChild(contentElement);
-            document.body.appendChild(rootElement);
+            _rootElement.appendChild(_contentElement);
+            document.body.appendChild(_rootElement);
         };
 
     };
