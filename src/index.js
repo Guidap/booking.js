@@ -67,8 +67,8 @@
             }
 
             let isProduction = (process.env.NODE_ENV === 'production');
-            let protocol = isProduction ? "https://" : "http://";
-            let path = (isProduction ? "" : "/app_dev.php") + '/export/full/' + uuid;
+            let protocol = isProduction ? 'https://' : 'http://';
+            let path = (isProduction ? '' : '/app_dev.php') + '/export/full/' + uuid;
 
             _iframeElement.setAttribute('src', protocol + _domain + path);
             _rootElement.style.display = 'block';
