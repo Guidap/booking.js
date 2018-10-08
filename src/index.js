@@ -7,7 +7,8 @@
         let _contentElement = null;
         let _iframeElement = null;
 
-        /** Creates root element for modal to be displayed
+        /**
+         * Creates root element for modal to be displayed
          *
          */
         let _createRoot = function() {
@@ -15,7 +16,8 @@
             _rootElement.setAttribute('style', 'display:none; position:fixed; left:0; top:0; height:100vh; width:100vw; background-color:rgba(50, 50, 50, 0.5);');
         };
 
-        /** Creates backdrop meant to darken website, hold close button and iframe
+        /**
+         * Creates backdrop meant to darken website, hold close button and iframe
          *
          */
         let _createBackdrop = function() {
@@ -23,7 +25,9 @@
             _contentElement.setAttribute('style', 'position:absolute; left:10px; top:25px; width:calc(100% - 20px); height:calc(100% - 50px); box-sizing: border-box; border:1px solid #E0E0E0; background-color:#fff; box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);');
         };
 
-        /** Creates button meant to close modal
+        /**
+         *
+         * Creates button meant to close modal
          *
          */
         let _createCloseButton = function() {
@@ -34,7 +38,8 @@
             return closeElement;
         };
 
-        /** Creates iframe meant to show content
+        /**
+         * Creates iframe meant to show content
          *
          */
         let _createIframe = function() {
@@ -48,7 +53,8 @@
             _iframeElement.setAttribute('allowtransparency', "0");
         };
 
-        /** Sets iframe src and display modal
+        /**
+         * Sets iframe src and display modal
          * @param uuid Uuid of module export
          * @param e JS event from onclick
          */
@@ -76,14 +82,16 @@
             return false;
         };
 
-        /** Closes modal
+        /**
+         * Closes modal
          */
         this.close = function () {
             _iframeElement.setAttribute('src', '');
             _rootElement.style.display = 'none';
         };
 
-        /** Sets owner domain for use in iframe, creates modal
+        /**
+         * Sets owner domain for use in iframe, creates modal
          * @param domain Tenant domain
          */
         this.init = function (domain) {
