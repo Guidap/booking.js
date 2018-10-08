@@ -67,9 +67,14 @@
             }
 
             // Cancel propagation
-            event.cancelBubble = true;      // IE
+            event.cancelBubble = true;      // IE 8 and below
             if (event.stopPropagation) {    // All modern browsers
                 event.stopPropagation();
+            }
+
+            event.returnValue = true;       // IE 8 and below
+            if (event.preventDefault) {     // All modern browsers
+                event.preventDefault();
             }
 
             let isProduction = process.env.NODE_ENV === 'production';
