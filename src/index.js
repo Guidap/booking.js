@@ -9,7 +9,6 @@
 
         /**
          * Creates root element for modal to be displayed
-         *
          */
         let _createRoot = function() {
             _rootElement = document.createElement('div');
@@ -18,7 +17,6 @@
 
         /**
          * Creates backdrop meant to darken website, hold close button and iframe
-         *
          */
         let _createBackdrop = function() {
             _contentElement = document.createElement('div');
@@ -26,9 +24,7 @@
         };
 
         /**
-         *
          * Creates button meant to close modal
-         *
          */
         let _createCloseButton = function() {
             let closeElement = document.createElement('div');
@@ -40,7 +36,6 @@
 
         /**
          * Creates iframe meant to show content
-         *
          */
         let _createIframe = function() {
             _iframeElement = document.createElement('iframe');
