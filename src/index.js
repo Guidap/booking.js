@@ -72,7 +72,7 @@
                 event.stopPropagation();
             }
 
-            let isProduction = (process.env.NODE_ENV === 'production');
+            let isProduction = process.env.NODE_ENV === 'production';
             let protocol = isProduction ? 'https://' : 'http://';
             let path = (isProduction ? '' : '/app_dev.php') + '/export/full/' + uuid;
 
