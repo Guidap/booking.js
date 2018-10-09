@@ -1,8 +1,6 @@
 (function() {
     function Booking() {
 
-        let _domain = null;
-
         let _rootElement = null;
         let _contentElement = null;
         let _iframeElement = null;
@@ -53,7 +51,7 @@
          * @param uuid Uuid of module export
          * @param e JS event from onclick
          */
-        this.call = function (uuid, e) {
+        this.call = function (domain, uuid, e) {
             let event;
             if (!e) {
                 event = window.event;
@@ -76,7 +74,7 @@
             let protocol = isProduction ? 'https://' : 'http://';
             let path = (isProduction ? '' : '/app_dev.php') + '/export/full/' + uuid;
 
-            _iframeElement.setAttribute('src', protocol + _domain + path);
+            _iframeElement.setAttribute('src', protocol + domain + path);
             _rootElement.style.display = 'block';
 
             return false;
@@ -91,12 +89,10 @@
         };
 
         /**
-         * Sets owner domain for use in iframe, creates modal
+         * Creates modal
          * @param domain Tenant domain
          */
-        this.init = function (domain) {
-            _domain = domain;
-
+        this.init = function () {
             _createRoot();
             _createBackdrop();
             _contentElement.appendChild(_createCloseButton());
@@ -112,4 +108,8 @@
 
     window.GUIDAP = window.GUIDAP || {};
     window.GUIDAP.booking = new Booking();
+
+    document.addEventListener('DOMContentLoaded', function (){
+        window.GUIDAP.booking.init();
+    });
 })();
