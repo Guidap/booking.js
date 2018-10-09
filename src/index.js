@@ -109,7 +109,5 @@
     window.GUIDAP = window.GUIDAP || {};
     window.GUIDAP.booking = new Booking();
 
-    document.addEventListener('DOMContentLoaded', function (){
-        window.GUIDAP.booking.init();
-    });
+    window.GUIDAP.booking.init();
 })();
