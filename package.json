@@ -1,6 +1,6 @@
 {
   "name": "booking.js",
-  "version": "0.0.3",
+  "version": "1.0.0",
   "main": "dist/lib.js",
   "repository": "git@github.com:Guidap/booking.js.git",
   "author": "GUIDAP <dev@guidap.co>",
