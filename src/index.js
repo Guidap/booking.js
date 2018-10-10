@@ -10,7 +10,7 @@
          */
         let _createRoot = function() {
             _rootElement = document.createElement('div');
-            _rootElement.setAttribute('style', 'display:none; position:fixed; left:0; top:0; height:100vh; width:100vw; background-color:rgba(50, 50, 50, 0.5);');
+            _rootElement.setAttribute('style', 'display:none; position:fixed; left:0; top:0; height:100vh; width:100vw; background-color:rgba(50, 50, 50, 0.5); z-index:99999');
         };
 
         /**
