@@ -1,4 +1,4 @@
-(function () {
+(function() {
     function Booking() {
 
         let _rootElement = null;
@@ -9,7 +9,7 @@
         /**
          * Creates root element for modal to be displayed
          */
-        let _createRoot = function () {
+        let _createRoot = function() {
             _rootElement = document.createElement('div');
             _rootElement.setAttribute('style', 'display:none; position:fixed; left:0; top:0; height:100vh; width:100vw; background-color:rgba(50, 50, 50, 0.5); z-index:99998');
         };
@@ -17,12 +17,12 @@
         /**
          * Creates backdrop meant to darken website, hold close button and iframe
          */
-        let _createBackdrop = function () {
+        let _createBackdrop = function() {
             _contentElement = document.createElement('div');
             _contentElement.setAttribute('style', 'position:absolute; left:5vw; top:5vh; width:90%; height:90vh; box-sizing: content-box; border:1px solid #E0E0E0; background-color:#fff; box-shadow: 0 0 30px rgba(0, 0, 0, 0.3); ');
         };
 
-        let _scrollFrame = function () {
+        let _scrollFrame = function() {
             _frameElement = document.createElement('div');
             _frameElement.setAttribute('style', 'overflow: auto; -webkit-overflow-scrolling:touch; height: 100%; border: 1px solid #e0e0e0;');
         };
@@ -30,7 +30,7 @@
         /**
          * Creates button meant to close modal
          */
-        let _createCloseButton = function () {
+        let _createCloseButton = function() {
             let closeElement = document.createElement('div');
             closeElement.setAttribute('style', 'position:absolute; top:-22px; right:-8px; height:44px; width:44px; border-radius:50%; background:#fff; text-align:center; font-family: sans-serif; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12), 0 1px 3px rgba(0, 0, 0, 0.20); cursor:pointer; z-index:99999');
             closeElement.setAttribute('onClick', 'GUIDAP.booking.close()');
@@ -41,7 +41,7 @@
         /**
          * Creates iframe meant to show content
          */
-        let _createIframe = function () {
+        let _createIframe = function() {
             _iframeElement = document.createElement('iframe');
             _iframeElement.setAttribute('style', 'width:1px; min-width:100%; height:100%; margin-bottom:30px;');
             _iframeElement.setAttribute('marginwidth', "0");
@@ -118,7 +118,7 @@
             document.body.appendChild(_rootElement);
         };
 
-    } 
+    };
 
     window.GUIDAP = window.GUIDAP || {};
     window.GUIDAP.booking = new Booking();
