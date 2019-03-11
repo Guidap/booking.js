@@ -5,6 +5,7 @@
         let _contentElement = null;
         let _iframeElement = null;
         let _frameElement = null;
+        let isSafaraIos = window.navigator.platform.includes('iPhone') && window.navigator.userAgent.includes('Safari')
 
         /**
          * Creates root element for modal to be displayed
@@ -19,12 +20,17 @@
          */
         let _createBackdrop = function() {
             _contentElement = document.createElement('div');
-            _contentElement.setAttribute('style', 'position:absolute; left:5vw; top:5vh; width:90%; height:90vh; box-sizing: content-box; border:1px solid #E0E0E0; background-color:#fff; box-shadow: 0 0 30px rgba(0, 0, 0, 0.3); ');
+            if (isSafaraIos) {
+                _contentElement.setAttribute('style', 'position:absolute; left:5vw; top:2vh; width:90%; height:85%; box-sizing: content-box; border:1px solid #E0E0E0; background-color:#fff; box-shadow: 0 0 30px rgba(0, 0, 0, 0.3); ');
+            } else _contentElement.setAttribute('style', 'position:absolute; left:5vw; top:5vh; width:90%; height:90vh; box-sizing: content-box; border:1px solid #E0E0E0; background-color:#fff; box-shadow: 0 0 30px rgba(0, 0, 0, 0.3); ');
         };
 
+        /**
+         * Creates intermediate div to fix the scrolling and framing problems in IOS Safari
+         */
         let _scrollFrame = function() {
             _frameElement = document.createElement('div');
-            _frameElement.setAttribute('style', 'overflow: auto; -webkit-overflow-scrolling:touch; height: 100%; border: 1px solid #e0e0e0;');
+            _frameElement.setAttribute('style', 'overflow: auto; -webkit-overflow-scrolling:touch; height:100%;');
         };
 
         /**
@@ -43,14 +49,14 @@
          */
         let _createIframe = function() {
             _iframeElement = document.createElement('iframe');
-            _iframeElement.setAttribute('style', 'width:1px; min-width:100%; height:100%; margin-bottom:30px;');
+            _iframeElement.setAttribute('style', 'width: 1px; min-width: 100%; *width: 100%; height: 100%;');
             _iframeElement.setAttribute('marginwidth', "0");
             _iframeElement.setAttribute('marginHeight', "0");
             _iframeElement.setAttribute('frameborder', "0");
             _iframeElement.setAttribute('vspace', "0");
             _iframeElement.setAttribute('hspace', "0");
             _iframeElement.setAttribute('allowtransparency', "0");
-            if (window.navigator.userAgent.includes('Mobile') && window.navigator.userAgent.includes('Safari')) {
+            if (isSafaraIos) {
                 _iframeElement.setAttribute('scrolling', "no");
             }
         };
@@ -106,13 +112,15 @@
             _createBackdrop();
             _contentElement.appendChild(_createCloseButton());
 
-            if (window.navigator.userAgent.includes('Mobile') && window.navigator.userAgent.includes('Safari')) {
-            _scrollFrame();
-            _contentElement.appendChild(_frameElement);
+            if (isSafaraIos) {
+                _scrollFrame();
+                _contentElement.appendChild(_frameElement);
+                _createIframe();
+                _frameElement.appendChild(_iframeElement);
+            } else {
+                _createIframe();
+                _contentElement.appendChild(_iframeElement);
             }
-
-            _createIframe();
-            _frameElement.appendChild(_iframeElement);
 
             _rootElement.appendChild(_contentElement);
             document.body.appendChild(_rootElement);
