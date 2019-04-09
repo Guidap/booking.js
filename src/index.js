@@ -4,13 +4,15 @@
         let _rootElement = null;
         let _contentElement = null;
         let _iframeElement = null;
+        let _frameElement = null;
+        let isSafaraIos = window.navigator && window.navigator.platform && window.navigator.platform.includes('iPhone') && window.navigator.userAgent.includes('Safari');
 
         /**
          * Creates root element for modal to be displayed
          */
         let _createRoot = function() {
             _rootElement = document.createElement('div');
-            _rootElement.setAttribute('style', 'display:none; position:fixed; left:0; top:0; height:100vh; width:100vw; background-color:rgba(50, 50, 50, 0.5); z-index:99999');
+            _rootElement.setAttribute('style', 'display:none; position:fixed; left:0; top:0; height:100vh; width:100vw; background-color:rgba(50, 50, 50, 0.5); z-index:99998');
         };
 
         /**
@@ -18,7 +20,20 @@
          */
         let _createBackdrop = function() {
             _contentElement = document.createElement('div');
-            _contentElement.setAttribute('style', 'position:absolute; left:5vw; top:5vh; width:90vw; height:90vh; box-sizing: border-box; border:1px solid #E0E0E0; background-color:#fff; box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);');
+            let style = ' position:absolute; left:5vw; width:90%; box-sizing: content-box; border:1px solid #E0E0E0; background-color:#fff; box-shadow: 0 0 30px rgba(0, 0, 0, 0.3) ';
+            if (isSafaraIos) {
+                _contentElement.setAttribute('style', 'top:2vh; height:85%;'+ style);
+            } else {
+                _contentElement.setAttribute('style', 'top:5vh; height:90vh;'+ style);
+            }
+        };
+
+        /**
+         * Creates intermediate div to fix the scrolling and framing problems in IOS Safari
+         */
+        let _scrollFrame = function() {
+            _frameElement = document.createElement('div');
+            _frameElement.setAttribute('style', 'overflow: auto; -webkit-overflow-scrolling:touch; height:100%;');
         };
 
         /**
@@ -26,7 +41,7 @@
          */
         let _createCloseButton = function() {
             let closeElement = document.createElement('div');
-            closeElement.setAttribute('style', 'position:absolute; top:-22px; right:-8px; height:44px; width:44px; border-radius:50%; background:#fff; text-align:center; font-family: sans-serif; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12), 0 1px 3px rgba(0, 0, 0, 0.20); cursor:pointer;');
+            closeElement.setAttribute('style', 'position:absolute; top:-22px; right:-8px; height:44px; width:44px; border-radius:50%; background:#fff; text-align:center; font-family: sans-serif; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12), 0 1px 3px rgba(0, 0, 0, 0.20); cursor:pointer; z-index:99999');
             closeElement.setAttribute('onClick', 'GUIDAP.booking.close()');
             closeElement.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" style="height:100%" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path fill="4c4c4c" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>';
             return closeElement;
@@ -37,13 +52,16 @@
          */
         let _createIframe = function() {
             _iframeElement = document.createElement('iframe');
-            _iframeElement.setAttribute('style', 'width:100%; height:100%');
+            _iframeElement.setAttribute('style', 'width: 1px; min-width: 100%; *width: 100%; height: 100%;');
             _iframeElement.setAttribute('marginwidth', "0");
             _iframeElement.setAttribute('marginHeight', "0");
             _iframeElement.setAttribute('frameborder', "0");
             _iframeElement.setAttribute('vspace', "0");
             _iframeElement.setAttribute('hspace', "0");
             _iframeElement.setAttribute('allowtransparency', "0");
+            if (isSafaraIos) {
+                _iframeElement.setAttribute('scrolling', "no");
+            }
         };
 
         /**
@@ -97,8 +115,15 @@
             _createBackdrop();
             _contentElement.appendChild(_createCloseButton());
 
-            _createIframe();
-            _contentElement.appendChild(_iframeElement);
+            if (isSafaraIos) {
+                _scrollFrame();
+                _contentElement.appendChild(_frameElement);
+                _createIframe();
+                _frameElement.appendChild(_iframeElement);
+            } else {
+                _createIframe();
+                _contentElement.appendChild(_iframeElement);
+            }
 
             _rootElement.appendChild(_contentElement);
             document.body.appendChild(_rootElement);
