@@ -5,7 +5,7 @@
         let _contentElement = null;
         let _iframeElement = null;
         let _frameElement = null;
-        let isSafaraIos = window.navigator.platform.includes('iPhone') && window.navigator.userAgent.includes('Safari')
+        let isSafaraIos = window.navigator && window.navigator.platform && window.navigator.platform.includes('iPhone') && window.navigator.userAgent.includes('Safari');
 
         /**
          * Creates root element for modal to be displayed
@@ -20,9 +20,12 @@
          */
         let _createBackdrop = function() {
             _contentElement = document.createElement('div');
+            let style = ' position:absolute; left:5vw; width:90%; box-sizing: content-box; border:1px solid #E0E0E0; background-color:#fff; box-shadow: 0 0 30px rgba(0, 0, 0, 0.3) ';
             if (isSafaraIos) {
-                _contentElement.setAttribute('style', 'position:absolute; left:5vw; top:2vh; width:90%; height:85%; box-sizing: content-box; border:1px solid #E0E0E0; background-color:#fff; box-shadow: 0 0 30px rgba(0, 0, 0, 0.3); ');
-            } else _contentElement.setAttribute('style', 'position:absolute; left:5vw; top:5vh; width:90%; height:90vh; box-sizing: content-box; border:1px solid #E0E0E0; background-color:#fff; box-shadow: 0 0 30px rgba(0, 0, 0, 0.3); ');
+                _contentElement.setAttribute('style', 'top:2vh; height:85%;'+ style);
+            } else {
+                _contentElement.setAttribute('style', 'top:5vh; height:90vh;'+ style);
+            }
         };
 
         /**
