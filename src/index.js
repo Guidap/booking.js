@@ -75,7 +75,7 @@
             let protocol = isProduction ? 'https://' : 'http://';
             let path = (isProduction ? '' : '/app_dev.php') + '/export/full/' + uuid;
             if(isSafaraIos) {
-                window.location = path;
+                window.location = protocol + domain + path;
                 return;
             }
 
