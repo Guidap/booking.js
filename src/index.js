@@ -4,7 +4,6 @@
         let _rootElement = null;
         let _contentElement = null;
         let _iframeElement = null;
-        let _frameElement = null;
         let isSafaraIos = window.navigator && window.navigator.platform && window.navigator.platform.includes('iPhone') && window.navigator.userAgent.includes('Safari');
 
         /**
@@ -20,20 +19,7 @@
          */
         let _createBackdrop = function() {
             _contentElement = document.createElement('div');
-            let style = ' position:absolute; left:5vw; width:90%; box-sizing: content-box; border:1px solid #E0E0E0; background-color:#fff; box-shadow: 0 0 30px rgba(0, 0, 0, 0.3) ';
-            if (isSafaraIos) {
-                _contentElement.setAttribute('style', 'top:2vh; height:85%;'+ style);
-            } else {
-                _contentElement.setAttribute('style', 'top:5vh; height:90vh;'+ style);
-            }
-        };
-
-        /**
-         * Creates intermediate div to fix the scrolling and framing problems in IOS Safari
-         */
-        let _scrollFrame = function() {
-            _frameElement = document.createElement('div');
-            _frameElement.setAttribute('style', 'overflow: auto; -webkit-overflow-scrolling:touch; height:100%;');
+            _contentElement.setAttribute('style', 'position:absolute; left:5vw; width:90%; box-sizing: content-box; border:1px solid #E0E0E0; background-color:#fff; box-shadow: 0 0 30px rgba(0, 0, 0, 0.3); top:5vh; height:90vh;');
         };
 
         /**
@@ -52,16 +38,13 @@
          */
         let _createIframe = function() {
             _iframeElement = document.createElement('iframe');
-            _iframeElement.setAttribute('style', 'width: 1px; min-width: 100%; *width: 100%; height: 100%;');
+            _iframeElement.setAttribute('style', 'width: 100%; height: 100%;');
             _iframeElement.setAttribute('marginwidth', "0");
             _iframeElement.setAttribute('marginHeight', "0");
             _iframeElement.setAttribute('frameborder', "0");
             _iframeElement.setAttribute('vspace', "0");
             _iframeElement.setAttribute('hspace', "0");
             _iframeElement.setAttribute('allowtransparency', "0");
-            if (isSafaraIos) {
-                _iframeElement.setAttribute('scrolling', "no");
-            }
         };
 
         /**
@@ -69,9 +52,9 @@
          * @param uuid Uuid of module export
          * @param e JS event from onclick
          */
-        this.call = function (domain, uuid, e) {
+        this.call = function(domain, uuid, e) {
             let event;
-            if (!e) {
+            if(!e) {
                 event = window.event;
             } else {
                 event = e;
@@ -79,18 +62,22 @@
 
             // Cancel propagation
             event.cancelBubble = true;      // IE 8 and below
-            if (event.stopPropagation) {    // All modern browsers
+            if(event.stopPropagation) {    // All modern browsers
                 event.stopPropagation();
             }
 
             event.returnValue = true;       // IE 8 and below
-            if (event.preventDefault) {     // All modern browsers
+            if(event.preventDefault) {     // All modern browsers
                 event.preventDefault();
             }
 
             let isProduction = process.env.NODE_ENV === 'production';
             let protocol = isProduction ? 'https://' : 'http://';
             let path = (isProduction ? '' : '/app_dev.php') + '/export/full/' + uuid;
+            if(isSafaraIos) {
+                window.location = path;
+                return;
+            }
 
             _iframeElement.setAttribute('src', protocol + domain + path);
             _rootElement.style.display = 'block';
@@ -101,7 +88,7 @@
         /**
          * Closes modal
          */
-        this.close = function () {
+        this.close = function() {
             _iframeElement.setAttribute('src', '');
             _rootElement.style.display = 'none';
         };
@@ -110,20 +97,17 @@
          * Creates modal
          * @param domain Tenant domain
          */
-        this.init = function () {
+        this.init = function() {
+            if(isSafaraIos) {
+                return;
+            }
+
             _createRoot();
             _createBackdrop();
             _contentElement.appendChild(_createCloseButton());
 
-            if (isSafaraIos) {
-                _scrollFrame();
-                _contentElement.appendChild(_frameElement);
-                _createIframe();
-                _frameElement.appendChild(_iframeElement);
-            } else {
-                _createIframe();
-                _contentElement.appendChild(_iframeElement);
-            }
+            _createIframe();
+            _contentElement.appendChild(_iframeElement);
 
             _rootElement.appendChild(_contentElement);
             document.body.appendChild(_rootElement);
