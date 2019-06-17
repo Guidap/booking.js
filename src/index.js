@@ -4,7 +4,7 @@
         let _rootElement = null;
         let _contentElement = null;
         let _iframeElement = null;
-        let isSafaraIos = window.navigator && window.navigator.platform && window.navigator.platform.includes('iPhone') && window.navigator.userAgent.includes('Safari');
+        let isSafaraIos = window.navigator && window.navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
 
         /**
          * Creates root element for modal to be displayed
@@ -75,7 +75,7 @@
             let protocol = isProduction ? 'https://' : 'http://';
             let path = (isProduction ? '' : '/app_dev.php') + '/export/full/' + uuid;
             if(isSafaraIos) {
-                window.location = path;
+                window.location = protocol + domain + path;
                 return;
             }
 
