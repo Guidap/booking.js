@@ -19,7 +19,7 @@
          */
         let _createBackdrop = function() {
             _contentElement = document.createElement('div');
-            _contentElement.setAttribute('style', 'position:absolute; left:5vw; width:90%; box-sizing: content-box; border:1px solid #E0E0E0; background-color:#fff; box-shadow: 0 0 30px rgba(0, 0, 0, 0.3); top:5vh; height:90vh;');
+            _contentElement.setAttribute('style', 'position:absolute; left:5vw; width:90%; box-sizing: content-box; border:1px solid #E0E0E0; background-color:#fff; box-shadow: 0 0 30px rgba(0, 0, 0, 0.3); top:5vh; height:87vh;');
         };
 
         /**
