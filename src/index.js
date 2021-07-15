@@ -11,6 +11,7 @@
          */
         let _createRoot = function() {
             _rootElement = document.createElement('div');
+            _rootElement.setAttribute('class', 'guidap-booking-module');
             _rootElement.setAttribute('style', 'display:none; position:fixed; left:0; top:0; height:100vh; width:100vw; background-color:rgba(50, 50, 50, 0.5); z-index:99998');
         };
 
@@ -19,6 +20,7 @@
          */
         let _createBackdrop = function() {
             _contentElement = document.createElement('div');
+            _contentElement.setAttribute('class', 'guidap-booking-module-backdrop');
             _contentElement.setAttribute('style', 'position:absolute; left:5vw; width:90%; box-sizing: content-box; border:1px solid #E0E0E0; background-color:#fff; box-shadow: 0 0 30px rgba(0, 0, 0, 0.3); top:5vh; height:90vh;');
         };
 
@@ -27,6 +29,7 @@
          */
         let _createCloseButton = function() {
             let closeElement = document.createElement('div');
+            closeElement.setAttribute('class', 'guidap-booking-module-close-button');
             closeElement.setAttribute('style', 'position:absolute; top:-22px; right:-8px; height:44px; width:44px; border-radius:50%; background:#fff; text-align:center; font-family: sans-serif; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12), 0 1px 3px rgba(0, 0, 0, 0.20); cursor:pointer; z-index:99999');
             closeElement.setAttribute('onClick', 'GUIDAP.booking.close()');
             closeElement.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" style="height:100%" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path fill="4c4c4c" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>';

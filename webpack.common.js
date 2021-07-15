@@ -11,8 +11,7 @@ module.exports = {
                 test: /\.(css|scss|sass)$/,
                 use: [
                     'css-loader',
-                    'resolve-url-loader',
-                    'sass-loader?indentedSyntax'
+                    'resolve-url-loader'
                 ]
             },
             {
