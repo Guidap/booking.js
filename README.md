@@ -1,4 +1,6 @@
 # booking.js
+[![](https://data.jsdelivr.com/v1/package/gh/Guidap/booking.js/badge)](https://www.jsdelivr.com/package/gh/Guidap/booking.js/badge)
+
 A public library used to import GUIDAP reservation module on your website 🚀
 
 ## How to
